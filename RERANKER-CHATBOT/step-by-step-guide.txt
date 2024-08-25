@@ -1,0 +1,84 @@
+
+Here’s a short step-by-step guide to using the code in your notebook:
+
+Step-by-Step Guide
+1. Set Up Your Environment
+Install Required Packages: Install the necessary Python libraries.
+bash
+Copy code
+!pip install -q llama-index langchain-community groq gradio qdrant_client sentence-transformers
+2. Import Libraries
+Import Essential Libraries: Import the libraries needed for data processing, embedding, and vector management.
+python
+Copy code
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+from langchain.embeddings import HuggingFaceEmbeddings
+from qdrant_client import QdrantClient
+from google.colab import userdata
+from qdrant_client.models import Distance, VectorParams
+3. Authenticate and Set Up Models
+Login to Hugging Face: Authenticate to access models from Hugging Face.
+python
+Copy code
+from huggingface_hub import login
+login(token="your_hugging_face_token")
+embeddings = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+4. Load and Process Data
+Load Dataset: Load your dataset into a Pandas DataFrame.
+
+python
+Copy code
+df = pd.read_csv("your_dataset.csv")
+Prepare Content: Process the content from the dataset for embedding.
+
+python
+Copy code
+def make_content(df):
+    # Process content from the dataframe
+5. Set Up Qdrant Collection
+Initialize Qdrant Client: Set up the collection in Qdrant for vector storage.
+python
+Copy code
+qdrant_client = QdrantClient()
+qdrant_client.recreate_collection(
+    collection_name="news_articles",
+    vectors_config=VectorParams(size=768, distance=Distance.COSINE),
+)
+6. Insert and Query Vectors
+Insert Data: Upload the vectorized content to the Qdrant collection.
+
+python
+Copy code
+vectors = [embeddings.encode(content) for content in df['Content']]
+qdrant_client.upload_collection(
+    collection_name="news_articles",
+    vectors=vectors,
+    payload=df.to_dict('records')
+)
+Query Vectors: Perform a search query on the vectors.
+
+python
+Copy code
+query_vector = embeddings.encode("example query")
+search_result = qdrant_client.search(
+    collection_name="news_articles",
+    query_vector=query_vector,
+    limit=5
+)
+7. Create a Gradio Interface
+Set Up Gradio Interface: Build an interactive interface for querying the chatbot.
+python
+Copy code
+import gradio as gr
+
+def chatbot(query):
+    # Implement the chatbot logic here
+
+demo = gr.Interface(fn=chatbot, inputs="text", outputs="text")
+demo.launch()
+8. Run and Interact
+Launch Gradio: Start the Gradio interface and interact with your chatbot.
+python
+Copy code
+demo.launch()
