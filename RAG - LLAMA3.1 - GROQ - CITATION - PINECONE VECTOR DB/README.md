@@ -157,7 +157,7 @@ if __name__ == "__main__":
 
 ## **Acknowledgements**
 
-This project is based on a tutorial from [Superteams.ai](https://superteams.ai/), which provided a foundational understanding of the RAG framework and its application in advanced AI systems.
+This project is based on a tutorial from [Pratiyush Singh](https://pratiyush295.github.io/pratiyush/), which provided a foundational understanding of the RAG framework and its application in advanced AI systems.
 
 ## **License**
 
