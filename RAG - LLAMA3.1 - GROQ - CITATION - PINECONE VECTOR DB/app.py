@@ -23,7 +23,7 @@ os.environ['OPENAI_API_KEY'] = userdata.get('OPENAI')
 nest_asyncio.apply()
 
 parser = LlamaParse(
-    api_key="llx-mB9wvoCebPklLBD7fWq3V88dKetA5V7B5h8WiXEq1xQ433YV",
+    api_key="LLAMA PARSE API KEY",
     result_type="markdown"
 )
 
@@ -36,10 +36,10 @@ openai.api_key = os.environ['OPENAI_API_KEY']
 client = OpenAI()
 
 from pinecone import Pinecone
-pc = Pinecone(api_key="4873b432-8fc0-4ce4-9b89-8c977ac18a81")
+pc = Pinecone(api_key="PINE CONE API KEY")
 index = pc.Index("chat")
 
-groq_client = Groq(api_key='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')
+groq_client = Groq(api_key='GROQ API KEY')
 
 # Functions
 def tokenize_paragraphs(text):
