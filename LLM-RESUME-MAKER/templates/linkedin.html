@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ contact.name }}'s Resume</title>
+    <link rel="stylesheet" href="../static/css/linkedin.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ contact.name }}</h1>
+            <p class="contact-info">
+                <strong>Location:</strong> {{ contact.address }} | 
+                <strong>Phone:</strong> {{ contact.mobile }} | 
+                <strong>Email:</strong> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a> |
+                <strong>LinkedIn:</strong> <a href="https://{{ contact.linkedin }}" target="_blank">Profile</a>
+            </p>
+        </header>
+
+        <main>
+            <section class="top-skills">
+                <h2>Top Skills</h2>
+                <ul>
+                    {% for skill in top_skills.skills %}
+                        <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="summary">
+                <h2>Summary</h2>
+                <p>{{ summary.text }}</p>
+            </section>
+
+            <section class="experience">
+                <h2>Experience</h2>
+                <ul>
+                    {% for exp in experience %}
+                        <li>
+                            <strong>{{ exp.position }}</strong> at {{ exp.company }} ({{ exp.duration }})
+                            <br><strong>Location:</strong> {{ exp.location }}
+                            <p>{{ exp.description }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="education">
+                <h2>Education</h2>
+                <ul>
+                    {% for edu in education %}
+                        <li>
+                            <strong>{{ edu.degree }}</strong> from {{ edu.institution }} ({{ edu.duration }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

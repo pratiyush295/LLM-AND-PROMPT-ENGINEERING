@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ contact_info.name }}'s Resume</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ contact_info.name }}</h1>
+            <p class="contact-info">
+                <strong>Location:</strong> {{ contact_info.location }} | 
+                <strong>Phone:</strong> {{ contact_info.phone }} | 
+                <strong>Email:</strong> <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a> |
+                <strong>LinkedIn:</strong> <a href="https://{{ contact_info.linkedin }}" target="_blank">Profile</a>
+            </p>
+        </header>
+
+        <main>
+            <section class="education">
+                <h2>Education</h2>
+                <ul>
+                    {% for edu in education %}
+                        <li>
+                            <strong>{{ edu.degree }}</strong> from {{ edu.institution }} ({{ edu.graduation_date }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="experience">
+                <h2>Professional Experience</h2>
+                <ul>
+                    {% for exp in professional_experience %}
+                        <li>
+                            <strong>{{ exp.position }}</strong> at {{ exp.company }} ({{ exp.start_date }} - {{ exp.end_date }})
+                            <ul>
+                                {% for desc in exp.description %}
+                                    <li>{{ desc }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="skills">
+                <h2>Skills</h2>
+                <ul>
+                    <li><strong>Programming Languages:</strong> {{ skills.programming_languages | join(', ') }}</li>
+                    <li><strong>Technologies:</strong> {{ skills.technologies | join(', ') }}</li>
+                </ul>
+            </section>
+
+            <section class="projects">
+                <h2>Projects</h2>
+                <ul>
+                    {% for proj in projects %}
+                        <li>
+                            <strong>{{ proj.name }}</strong>
+                            <ul>
+                                <li><strong>Description:</strong> {{ proj.description | join(', ') }}</li>
+                                <li><strong>Tech Stack:</strong> {{ proj.tech_stack | join(', ') }}</li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="additional-info">
+                <h2>Additional Information</h2>
+                <ul>
+                    {% if additional_info.awards %}
+                        <li><strong>Awards:</strong> {{ additional_info.awards | join(', ') }}</li>
+                    {% endif %}
+                    {% if additional_info.certifications %}
+                        <li><strong>Certifications:</strong> {{ additional_info.certifications | join(', ') }}</li>
+                    {% endif %}
+                    {% if additional_info.extracurricular %}
+                        <li><strong>Extracurricular:</strong> {{ additional_info.extracurricular | join(', ') }}</li>
+                    {% endif %}
+                    {% if additional_info.languages %}
+                        <li><strong>Languages:</strong> {{ additional_info.languages | join(', ') }}</li>
+                    {% endif %}
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
